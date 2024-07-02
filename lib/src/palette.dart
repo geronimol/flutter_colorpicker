@@ -946,6 +946,7 @@ class ColorPickerInput extends StatefulWidget {
     this.enableAlpha = true,
     this.embeddedText = false,
     this.disable = false,
+    this.enableInputAlpha = true,
   }) : super(key: key);
 
   final Color color;
@@ -953,6 +954,7 @@ class ColorPickerInput extends StatefulWidget {
   final bool enableAlpha;
   final bool embeddedText;
   final bool disable;
+  final bool enableInputAlpha;
 
   @override
   State<ColorPickerInput> createState() => _ColorPickerInputState();
@@ -972,7 +974,7 @@ class _ColorPickerInputState extends State<ColorPickerInput> {
   Widget build(BuildContext context) {
     if (inputColor != widget.color.value) {
       // ignore: prefer_interpolation_to_compose_strings
-      textEditingController.text = '#' +
+      textEditingController.text = (widget.enableInputAlpha ? '#': '') +
           widget.color.red.toRadixString(16).toUpperCase().padLeft(2, '0') +
           widget.color.green.toRadixString(16).toUpperCase().padLeft(2, '0') +
           widget.color.blue.toRadixString(16).toUpperCase().padLeft(2, '0') +
@@ -981,8 +983,8 @@ class _ColorPickerInputState extends State<ColorPickerInput> {
     return Padding(
       padding: const EdgeInsets.only(top: 5.0),
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        if (!widget.embeddedText) Text('Hex', style: Theme.of(context).textTheme.bodyLarge),
-        const SizedBox(width: 10),
+        if (!widget.embeddedText) Text('Hex${widget.enableInputAlpha ? '' : '#FF'}', style: Theme.of(context).textTheme.bodyLarge),
+        SizedBox(width: widget.enableInputAlpha ? 10 : 0),
         SizedBox(
           width: (Theme.of(context).textTheme.bodyMedium?.fontSize ?? 14) * 10,
           child: TextField(
@@ -990,7 +992,7 @@ class _ColorPickerInputState extends State<ColorPickerInput> {
             controller: textEditingController,
             inputFormatters: [
               UpperCaseTextFormatter(),
-              FilteringTextInputFormatter.allow(RegExp(kValidHexPattern)),
+              FilteringTextInputFormatter.allow(RegExp(widget.enableInputAlpha ? kValidHexPattern : r'^[0-9a-fA-F]{1,6}')),
             ],
             decoration: InputDecoration(
               isDense: true,

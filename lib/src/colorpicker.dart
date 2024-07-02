@@ -18,6 +18,7 @@ class ColorPicker extends StatefulWidget {
     this.onHsvColorChanged,
     this.paletteType = PaletteType.hsvWithHue,
     this.enableAlpha = true,
+    this.enableInputAlpha = true,
     @Deprecated('Use empty list in [labelTypes] to disable label.') this.showLabel = true,
     this.labelTypes = const [ColorLabelType.rgb, ColorLabelType.hsv, ColorLabelType.hsl],
     @Deprecated('Use Theme.of(context).textTheme.bodyText1 & 2 to alter text style.') this.labelTextStyle,
@@ -38,6 +39,7 @@ class ColorPicker extends StatefulWidget {
   final ValueChanged<HSVColor>? onHsvColorChanged;
   final PaletteType paletteType;
   final bool enableAlpha;
+  final bool enableInputAlpha;
   final bool showLabel;
   final List<ColorLabelType> labelTypes;
   final TextStyle? labelTextStyle;
@@ -352,6 +354,7 @@ class _ColorPickerState extends State<ColorPicker> {
               },
               enableAlpha: widget.enableAlpha,
               embeddedText: false,
+              enableInputAlpha: widget.enableInputAlpha,
             ),
           const SizedBox(height: 20.0),
         ],
