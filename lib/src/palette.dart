@@ -983,7 +983,7 @@ class _ColorPickerInputState extends State<ColorPickerInput> {
     return Padding(
       padding: const EdgeInsets.only(top: 5.0),
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        if (!widget.embeddedText) Text('Hex${widget.enableInputAlpha ? '' : '#FF'}', style: Theme.of(context).textTheme.bodyLarge),
+        if (!widget.embeddedText) Text('Hex${widget.enableInputAlpha ? '' : ' #FF'}', style: Theme.of(context).textTheme.bodyLarge),
         SizedBox(width: widget.enableInputAlpha ? 10 : 0),
         SizedBox(
           width: (Theme.of(context).textTheme.bodyMedium?.fontSize ?? 14) * 10,
